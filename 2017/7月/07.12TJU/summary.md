@@ -27,7 +27,7 @@
 模拟。注意点：..多组?
 
 ### E. The implementation problem
-模拟。注意点：~~枚举题意；~~存正方形复杂度太高；pattern是`.`的位置矩阵无所谓；N/S转180°还是N/S不能算两次。
+模拟。注意点： ~~枚举题意；~~ 存正方形复杂度太高；pattern是`.`的位置矩阵无所谓；N/S转180°还是N/S不能算两次。
 
 ### G. The brute force problem
 先介绍一个小结论。
