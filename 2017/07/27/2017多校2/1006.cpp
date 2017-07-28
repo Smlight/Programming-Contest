@@ -54,32 +54,28 @@ int main()
     int T;
     scanf("%d",&T);
     while (T--) {
-        ll n,m,tmpm=-1;
+        ll n,m;
         scanf("%lld%lld",&n,&m);
-        if (n%2==0) {
-            if (m==1) {
-                puts("1");
-                continue;
-            } else {
-                tmpm=m;
-                n--;m=2;
-            }
+        if (m==1) {
+            puts("1");
+            continue;
         }
         ll p=(fpow(2LL,n)-1+MO)%MO;
-        ll q=((fpow(4LL,n/2)-1)*2+MO)%MO;
-        q=MO-q*fpow(3LL,MO-2)%MO;
-        Matrix x(2,2);
-        x.e[0][0]=p;x.e[0][1]=q;
-        x.e[1][0]=0;x.e[1][1]=1;
-        x=fpow(x,m-1);
-        Matrix ans(2,1);
-        ans.e[0][0]=ans.e[1][0]=1;
-        ans=x*ans;
-        if (tmpm==-1) {
-            printf("%lld\n",ans.e[0][0]);
+        if (n%2==0) {
+            ll ans=p*2%MO*fpow(3LL,MO-2)%MO;
+            ans=ans*fpow(p,m-2)%MO;
+            printf("%lld\n",ans);
         } else {
-            p=(p*2+1)%MO;
-            printf("%lld\n",ans.e[0][0]*2%MO*fpow(p,tmpm-2)%MO);
+            ll q=((fpow(4LL,n/2)-1)*2+MO)%MO;
+            q=MO-q*fpow(3LL,MO-2)%MO;
+            Matrix x(2,2);
+            x.e[0][0]=p;x.e[0][1]=q;
+            x.e[1][0]=0;x.e[1][1]=1;
+            x=fpow(x,m-1);
+            Matrix ans(2,1);
+            ans.e[0][0]=ans.e[1][0]=1;
+            ans=x*ans;
+            printf("%lld\n",ans.e[0][0]);
         }
     }
     return 0;
