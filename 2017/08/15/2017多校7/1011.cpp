@@ -1,22 +1,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> v,vx;
+vector<int> v;
 
 int main()
 {
     v.push_back(1);
     v.push_back(2);
+    v.push_back(2);
+    int i=2,k=1;
     while (v.size()<10000000) {
-        int k=1;
-        vx.clear();
-        for (int i=0;i<v.size();i++) {
-            for (int j=0;j<v[i];j++) {
-                vx.push_back(k);
-            }
-            k=3-k;
+        for (int j=1;j<=v[i];j++) {
+            v.push_back(k);
         }
-        v=vx;
+        i++;
+        k=3-k;
     }
     int T,n;
     scanf("%d",&T);
