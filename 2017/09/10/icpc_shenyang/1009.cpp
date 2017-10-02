@@ -3,12 +3,6 @@ using namespace std;
 
 struct Cube {
     int a[73];
-    bool operator ==(const Cube &R) {
-        for (int i=1;i<=72;i++) {
-            if (a[i]!=R.a[i]) return false;
-        }
-        return true;
-    }
     bool solved() {
         for (int i=1;i<=8;i++) {
             int p=(i-1)*9;
@@ -20,272 +14,44 @@ struct Cube {
     }
 };
 
-Cube R(Cube x)
-{
-    swap(x.a[9],x.a[64]);
-    swap(x.a[64],x.a[23]);
-    swap(x.a[41],x.a[55]);
-    swap(x.a[55],x.a[18]);
-    swap(x.a[42],x.a[57]);
-    swap(x.a[57],x.a[17]);
-    swap(x.a[38],x.a[58]);
-    swap(x.a[58],x.a[16]);
-    swap(x.a[39],x.a[62]);
-    swap(x.a[62],x.a[15]);
-    swap(x.a[37],x.a[63]);
-    swap(x.a[63],x.a[14]);
+int group[12][9][3]={
+    {{9,64,23},{41,55,18},{42,57,17},{38,58,16},{39,62,15},{37,63,14},{54,46,50},{53,48,51},{49,47,52}},
+    {{46,5,27},{37,36,59},{39,35,60},{40,34,56},{44,33,57},{45,32,55},{64,68,72},{66,69,71},{65,70,67}},
+    {{68,54,19},{45,14,28},{44,15,30},{43,11,31},{42,12,35},{41,10,36},{1,5,9},{3,6,8},{2,7,4}},
+    {{37,18,32},{46,23,72},{48,24,71},{47,25,67},{51,26,66},{50,27,64},{55,63,59},{57,62,60},{58,61,56}},
+    {{25,49,2},{26,48,6},{22,47,7},{29,58,43},{30,62,42},{31,61,38}},
+    {{4,65,25},{8,66,24},{7,67,20},{43,56,13},{44,60,12},{40,61,11}},
+    {{36,14,55},{5,54,64},{6,53,66},{7,49,65},{8,48,69},{9,46,68},{45,41,37},{44,42,39},{43,38,40}},
+    {{1,50,72},{10,63,32},{12,62,33},{13,61,29},{17,60,30},{18,59,28},{19,23,27},{21,24,26},{20,25,22}},
+    {{1,54,23},{3,53,24},{4,52,20},{8,51,21},{9,50,19},{41,63,28},{10,14,18},{12,15,17},{11,16,13}},
+    {{1,27,68},{3,26,69},{2,22,70},{6,21,71},{5,19,72},{45,10,59},{36,28,32},{35,30,33},{31,29,34}},
+    {{40,16,29},{39,17,33},{38,13,34},{49,20,70},{53,21,69},{52,22,65}},
+    {{2,52,67},{3,51,71},{4,47,70},{11,58,34},{15,57,35},{16,56,31}}
+};
+int len[12]={9,9,9,9,6,6,9,9,9,9,6,6};
 
-    swap(x.a[54],x.a[46]);
-    swap(x.a[46],x.a[50]);
-    swap(x.a[53],x.a[48]);
-    swap(x.a[48],x.a[51]);
-    swap(x.a[49],x.a[47]);
-    swap(x.a[47],x.a[52]);
-    return x;
-}
-Cube L(Cube x)
+Cube roll(Cube x,int t)
 {
-    swap(x.a[46],x.a[5]);
-    swap(x.a[5],x.a[27]);
-    swap(x.a[37],x.a[36]);
-    swap(x.a[36],x.a[59]);
-    swap(x.a[39],x.a[35]);
-    swap(x.a[35],x.a[60]);
-    swap(x.a[40],x.a[34]);
-    swap(x.a[34],x.a[56]);
-    swap(x.a[44],x.a[33]);
-    swap(x.a[33],x.a[57]);
-    swap(x.a[45],x.a[32]);
-    swap(x.a[32],x.a[55]);
+    Cube y(x);
+    for (int i=0;i<len[t];i++) {
+        for (int j=0;j<3;j++) {
+            y.a[group[t][i][j]]=x.a[group[t][i][(j+1)%3]];
+        }
+    }
+    return y;
+}
 
-    swap(x.a[64],x.a[68]);
-    swap(x.a[68],x.a[72]);
-    swap(x.a[66],x.a[69]);
-    swap(x.a[69],x.a[71]);
-    swap(x.a[65],x.a[70]);
-    swap(x.a[70],x.a[67]);
-    return x;
-}
-Cube U(Cube x)
-{
-    swap(x.a[68],x.a[54]);
-    swap(x.a[54],x.a[19]);
-    swap(x.a[45],x.a[14]);
-    swap(x.a[14],x.a[28]);
-    swap(x.a[44],x.a[15]);
-    swap(x.a[15],x.a[30]);
-    swap(x.a[43],x.a[11]);
-    swap(x.a[11],x.a[31]);
-    swap(x.a[42],x.a[12]);
-    swap(x.a[12],x.a[35]);
-    swap(x.a[41],x.a[10]);
-    swap(x.a[10],x.a[36]);
-
-    swap(x.a[1],x.a[5]);
-    swap(x.a[5],x.a[9]);
-    swap(x.a[3],x.a[6]);
-    swap(x.a[6],x.a[8]);
-    swap(x.a[2],x.a[7]);
-    swap(x.a[7],x.a[4]);
-    return x;
-}
-Cube D(Cube x)
-{
-    swap(x.a[37],x.a[18]);
-    swap(x.a[18],x.a[32]);
-    swap(x.a[46],x.a[23]);
-    swap(x.a[23],x.a[72]);
-    swap(x.a[48],x.a[24]);
-    swap(x.a[24],x.a[71]);
-    swap(x.a[47],x.a[25]);
-    swap(x.a[25],x.a[67]);
-    swap(x.a[51],x.a[26]);
-    swap(x.a[26],x.a[66]);
-    swap(x.a[50],x.a[27]);
-    swap(x.a[27],x.a[64]);
-
-    swap(x.a[55],x.a[63]);
-    swap(x.a[63],x.a[59]);
-    swap(x.a[57],x.a[62]);
-    swap(x.a[62],x.a[60]);
-    swap(x.a[58],x.a[61]);
-    swap(x.a[61],x.a[56]);
-    return x;
-}
-Cube ML(Cube x)
-{
-    swap(x.a[49],x.a[25]);
-    swap(x.a[2],x.a[49]);
-    swap(x.a[48],x.a[26]);
-    swap(x.a[6],x.a[48]);
-    swap(x.a[47],x.a[22]);
-    swap(x.a[7],x.a[47]);
-    swap(x.a[58],x.a[29]);
-    swap(x.a[43],x.a[58]);
-    swap(x.a[62],x.a[30]);
-    swap(x.a[42],x.a[62]);
-    swap(x.a[61],x.a[31]);
-    swap(x.a[38],x.a[61]);
-    return x;
-}
-Cube MR(Cube x)
-{
-    swap(x.a[4],x.a[65]);
-    swap(x.a[65],x.a[25]);
-    swap(x.a[8],x.a[66]);
-    swap(x.a[66],x.a[24]);
-    swap(x.a[7],x.a[67]);
-    swap(x.a[67],x.a[20]);
-    swap(x.a[43],x.a[56]);
-    swap(x.a[56],x.a[13]);
-    swap(x.a[44],x.a[60]);
-    swap(x.a[60],x.a[12]);
-    swap(x.a[40],x.a[61]);
-    swap(x.a[61],x.a[11]);
-    return x;
-}
-Cube F(Cube x)
-{
-    swap(x.a[36],x.a[14]);
-    swap(x.a[14],x.a[55]);
-    swap(x.a[5],x.a[54]);
-    swap(x.a[54],x.a[64]);
-    swap(x.a[6],x.a[53]);
-    swap(x.a[53],x.a[66]);
-    swap(x.a[7],x.a[49]);
-    swap(x.a[49],x.a[65]);
-    swap(x.a[8],x.a[48]);
-    swap(x.a[48],x.a[69]);
-    swap(x.a[9],x.a[46]);
-    swap(x.a[46],x.a[68]);
-
-    swap(x.a[45],x.a[41]);
-    swap(x.a[41],x.a[37]);
-    swap(x.a[44],x.a[42]);
-    swap(x.a[42],x.a[39]);
-    swap(x.a[43],x.a[38]);
-    swap(x.a[38],x.a[40]);
-    return x;
-}
-Cube B(Cube x)
-{
-    swap(x.a[1],x.a[50]);
-    swap(x.a[50],x.a[72]);
-    swap(x.a[10],x.a[63]);
-    swap(x.a[63],x.a[32]);
-    swap(x.a[12],x.a[62]);
-    swap(x.a[62],x.a[33]);
-    swap(x.a[13],x.a[61]);
-    swap(x.a[61],x.a[29]);
-    swap(x.a[17],x.a[60]);
-    swap(x.a[60],x.a[30]);
-    swap(x.a[18],x.a[59]);
-    swap(x.a[59],x.a[28]);
-
-    swap(x.a[19],x.a[23]);
-    swap(x.a[23],x.a[27]);
-    swap(x.a[21],x.a[24]);
-    swap(x.a[24],x.a[26]);
-    swap(x.a[20],x.a[25]);
-    swap(x.a[25],x.a[22]);
-    return x;
-}
-Cube RB(Cube x)
-{
-    swap(x.a[1],x.a[54]);
-    swap(x.a[54],x.a[23]);
-    swap(x.a[3],x.a[53]);
-    swap(x.a[53],x.a[24]);
-    swap(x.a[4],x.a[52]);
-    swap(x.a[52],x.a[20]);
-    swap(x.a[8],x.a[51]);
-    swap(x.a[51],x.a[21]);
-    swap(x.a[9],x.a[50]);
-    swap(x.a[50],x.a[19]);
-    swap(x.a[41],x.a[63]);
-    swap(x.a[63],x.a[28]);
-
-    swap(x.a[10],x.a[14]);
-    swap(x.a[14],x.a[18]);
-    swap(x.a[12],x.a[15]);
-    swap(x.a[15],x.a[17]);
-    swap(x.a[11],x.a[16]);
-    swap(x.a[16],x.a[13]);
-    return x;
-}
-Cube LB(Cube x)
-{
-    swap(x.a[1],x.a[27]);
-    swap(x.a[27],x.a[68]);
-    swap(x.a[3],x.a[26]);
-    swap(x.a[26],x.a[69]);
-    swap(x.a[2],x.a[22]);
-    swap(x.a[22],x.a[70]);
-    swap(x.a[6],x.a[21]);
-    swap(x.a[21],x.a[71]);
-    swap(x.a[5],x.a[19]);
-    swap(x.a[19],x.a[72]);
-    swap(x.a[45],x.a[10]);
-    swap(x.a[10],x.a[59]);
-
-    swap(x.a[36],x.a[28]);
-    swap(x.a[28],x.a[32]);
-    swap(x.a[35],x.a[30]);
-    swap(x.a[30],x.a[33]);
-    swap(x.a[31],x.a[29]);
-    swap(x.a[29],x.a[34]);
-    return x;
-}
-Cube MU(Cube x)
-{
-    swap(x.a[40],x.a[16]);
-    swap(x.a[16],x.a[29]);
-    swap(x.a[39],x.a[17]);
-    swap(x.a[17],x.a[33]);
-    swap(x.a[38],x.a[13]);
-    swap(x.a[13],x.a[34]);
-    swap(x.a[49],x.a[20]);
-    swap(x.a[20],x.a[70]);
-    swap(x.a[53],x.a[21]);
-    swap(x.a[21],x.a[69]);
-    swap(x.a[52],x.a[22]);
-    swap(x.a[22],x.a[65]);
-    return x;
-}
-Cube MF(Cube x)
-{
-    swap(x.a[2],x.a[52]);
-    swap(x.a[52],x.a[67]);
-    swap(x.a[3],x.a[51]);
-    swap(x.a[51],x.a[71]);
-    swap(x.a[4],x.a[47]);
-    swap(x.a[47],x.a[70]);
-    swap(x.a[11],x.a[58]);
-    swap(x.a[58],x.a[34]);
-    swap(x.a[15],x.a[57]);
-    swap(x.a[57],x.a[35]);
-    swap(x.a[16],x.a[56]);
-    swap(x.a[56],x.a[31]);
-    return x;
-}
 bool dfs(int dep,Cube now)
 {
     if (dep>3) return false;
     if (now.solved()) return true;
     if (dep==3) return false;
-    #define re(x) if (dfs(dep+1,x)) return true
-    re(R(now));re(R(R(now)));
-    re(L(now));re(L(L(now)));
-    re(U(now));re(U(U(now)));
-    re(D(now));re(D(D(now)));
-    re(ML(now));re(ML(ML(now)));
-    re(MR(now));re(MR(MR(now)));
-    re(F(now));re(F(F(now)));
-    re(B(now));re(B(B(now)));
-    re(RB(now));re(RB(RB(now)));
-    re(LB(now));re(LB(LB(now)));
-    re(MU(now));re(MU(MU(now)));
-    re(MF(now));re(MF(MF(now)));
+    for (int i=0;i<12;i++) {
+        Cube tmp=roll(now,i);
+        if (dfs(dep+1,tmp)) return true;
+        tmp=roll(tmp,i);
+        if (dfs(dep+1,tmp)) return true;
+    }
     return false;
 }
 
