@@ -1,67 +1,51 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int N=15;
-int n=9;
-int a[N];
-int ans;
+const int mv[4]={1,2,7,8};
+struct Node {
+    int pos,dis;
+    vector<int> sta;
+    Node() {}
+    Node(int a,int b,vector<int> c):pos(a),dis(b),sta(c) {}
+};
 set< vector<int> > allst;
-
-bool check()
-{
-	if (a[0]!=0) return false;
-	for (int i=1;i<n;i++) {
-		if (a[i]!=9-i) return false;
-	}
-	return true;
-}
-
-bool have()
-{
-	vector<int> v;
-	for (int i=0;i<n;i++) {
-		v.push_back(a[i]);
-	}
-	if (allst.find(v)!=allst.end()) return true;
-	allst.insert(v);
-	return false;
-}
-
-void dfs(int dep,int p)
-{
-//	printf("%d %d\n",dep,p);
-	if (dep>=ans) return;
-	if (have()) return;
-	if (check()) {
-		puts("SUCCESSFUL!");
-		ans=dep;
-		return;
-	}
-	swap(a[p],a[(p+1)%9]);
-	dfs(dep+1,(p+1)%9);
-	swap(a[p],a[(p+1)%9]);
-	
-	swap(a[p],a[(p+2)%9]);
-	dfs(dep+1,(p+2)%9);
-	swap(a[p],a[(p+2)%9]);
-	
-	swap(a[p],a[(p+7)%9]);
-	dfs(dep+1,(p+7)%9);
-	swap(a[p],a[(p+7)%9]);
-	
-	swap(a[p],a[(p+8)%9]);
-	dfs(dep+1,(p+8)%9);
-	swap(a[p],a[(p+8)%9]);
-	
-}
 
 int main()
 {
-	for (int i=0;i<n;i++) {
-		a[i]=i;
-	}
-	ans=50;
-	dfs(0,0);
-	printf("%d\n",ans);
-	return 0;
+    vector<int> st,ed;
+    for (int i=0;i<9;i++) {
+        st.push_back(i);
+        ed.push_back(9-i);
+    }
+    ed[0]=0;
+    queue<Node> Q;
+    Q.push(Node(0,0,st));
+    int ans=-1;
+    while (!Q.empty()) {
+        Node p=Q.front();
+        Q.pop();
+
+        /********print_detail********/
+//        for (int i=0;i<9;i++) {
+//            printf("%d",p.sta[i]);
+//        }
+//        puts("");
+        /********print_detail********/
+
+        pair<set< vector<int> >::iterator, bool> insres=allst.insert(p.sta);
+        if (insres.second==false) continue;
+        if (p.sta==ed) {
+            ans=p.dis;
+            break;
+        }
+        vector<int> now=p.sta;
+        for (int i=0;i<4;i++) {
+            int np=(p.pos+mv[i])%9;
+            swap(now[p.pos],now[np]);
+            Q.push(Node(np,p.dis+1,now));
+            swap(now[p.pos],now[np]);
+        }
+    }
+    printf("%d\n",ans);
+    return 0;
 }
