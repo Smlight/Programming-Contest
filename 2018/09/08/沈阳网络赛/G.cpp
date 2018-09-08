@@ -13,8 +13,8 @@ void init(ll n)
     tot = 0;
     for (ll i = 2; i * i <= n; i++) {
         if (n % i == 0) {
+            a[tot++] = i;
             while(n % i == 0) {
-                a[tot++] = i;
                 n /= i;
             }
         }
