@@ -30,13 +30,12 @@ ll calc(ll n,ll k)
     return ((n+n+1)%mod*tmp%mod*INV6%mod*k%mod+tmp*INV2%mod)*k%mod;
 }
 
-ll n,m;
-ll ans;
+ll n,m,ans;
 
 void dfs(int dep,ll lcm,int d)
 {
     if (dep>=tot) return;
-    ll now=lcm/__gcd(lcm,a[dep])*a[dep];
+    ll now=lcm*a[dep];
     if (d&1) {
         ans-=calc(n/now,now);
         if (ans<0) ans+=mod;
