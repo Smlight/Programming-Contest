@@ -30,3 +30,6 @@
 # Document
 *.doc
 *.docx
+
+# Visual Studio Code
+.vscode/
