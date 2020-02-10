@@ -19,27 +19,18 @@ void addedge(int x,int y,int z)
     last[x]=tot++;
 }
 
-void dfs(int u,int fa)
+void solve(int u,int fa)
 {
     dp[u][0]=0;
-    for (int i=last[u];i!=-1;i=eg[i].next) {
-        int v=eg[i].go;
-        if (v==fa) continue;
-        dfs(v,u);
-        sz[u]+=sz[v];
-    }
     if (imp[u]) {
         dp[u][1]=0;
         sz[u]+=1;
     }
-}
-
-void solve(int u,int fa)
-{
     for (int e=last[u];e!=-1;e=eg[e].next) {
         int v=eg[e].go;
         if (v==fa) continue;
         solve(v,u);
+        sz[u]+=sz[v];
         for (int i=min(sz[u],k);i;i--) {
             for (int j=1;j<=min(sz[v],i);j++) {
                 dp[u][i]=min(dp[u][i],dp[u][i-j]+dp[v][j]+1LL*eg[e].val*j*(k-j));
@@ -64,7 +55,6 @@ int main()
         addedge(y,x,z);
     }
     memset(dp,inf,sizeof(dp));
-    dfs(1,0);
     solve(1,0);
     printf("%lld\n",dp[1][k]);
     return 0;
