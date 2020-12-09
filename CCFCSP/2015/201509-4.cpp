@@ -6,15 +6,15 @@ const int MAXM = 100010;
 struct Edge {
     int to,next;
 } edge1[MAXM],edge2[MAXM];
-//edge1ÊÇÔ­Í¼G£¬edge2ÊÇÄæÍ¼GT
+//edge1æ˜¯åŸå›¾Gï¼Œedge2æ˜¯é€†å›¾GT
 int head1[MAXN],head2[MAXN];
 bool mark1[MAXN],mark2[MAXN];
 int tot1,tot2;
 int cnt1,cnt2;
-int st[MAXN];//¶ÔÔ­Í¼½øĞĞdfs£¬µãµÄ½áÊøÊ±¼ä´ÓĞ¡µ½´óÅÅĞò
-int Belong[MAXN];//Ã¿¸öµãÊôÓÚÄÄ¸öÁ¬Í¨·ÖÁ¿(0~cnt2-1)
-int num;//ÖĞ¼ä±äÁ¿£¬ÓÃÀ´ÊıÄ³¸öÁ¬Í¨·ÖÁ¿ÖĞµãµÄ¸öÊı
-int setNum[MAXN];//Ç¿Á¬Í¨·ÖÁ¿ÖĞµãµÄ¸öÊı£¬±àºÅ0~cnt2-1
+int st[MAXN];//å¯¹åŸå›¾è¿›è¡Œdfsï¼Œç‚¹çš„ç»“æŸæ—¶é—´ä»å°åˆ°å¤§æ’åº
+int Belong[MAXN];//æ¯ä¸ªç‚¹å±äºå“ªä¸ªè¿é€šåˆ†é‡(0~cnt2-1)
+int num;//ä¸­é—´å˜é‡ï¼Œç”¨æ¥æ•°æŸä¸ªè¿é€šåˆ†é‡ä¸­ç‚¹çš„ä¸ªæ•°
+int setNum[MAXN];//å¼ºè¿é€šåˆ†é‡ä¸­ç‚¹çš„ä¸ªæ•°ï¼Œç¼–å·0~cnt2-1
 void addedge(int u,int v)
 {
     edge1[tot1].to = v;
@@ -41,7 +41,7 @@ void DFS2(int u)
         if(!mark2[edge2[i].to])
             DFS2(edge2[i].to);
 }
-void solve(int n)//µãµÄ±àºÅ´Ó1¿ªÊ¼
+void solve(int n)//ç‚¹çš„ç¼–å·ä»1å¼€å§‹
 {
     memset(mark1,false,sizeof(mark1));
     memset(mark2,false,sizeof(mark2));
